@@ -20,6 +20,20 @@ it, simply add the following line to your Podfile:
 pod 'SocketStreamSwift'
 ```
 
+## [Charthage](https://github.com/Carthage/Carthage)
+
+Officially supported: Carthage 0.33 and up.
+
+Add this to Cartfile
+```
+github "daisukenagata/SocketStreamSwift"
+```
+
+Terminal command
+```bash
+$ carthage update --platform iOS
+```
+
 ## Author
 
 daisukenagata, dbank0208@gmail.com
