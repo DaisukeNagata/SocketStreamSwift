@@ -7,7 +7,6 @@
 #
 
 Pod::Spec.new do |s|
-    od::Spec.new do |s|
         s.name             = 'SocketStreamSwift'
         s.version          = '0.1.0'
         s.summary          = 'It is a library to conduct chat.'
