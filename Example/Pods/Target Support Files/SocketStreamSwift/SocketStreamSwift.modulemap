@@ -1,0 +1,6 @@
+framework module SocketStreamSwift {
+  umbrella header "SocketStreamSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}
