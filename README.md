@@ -15,6 +15,11 @@ you have Python3.7.3
 $ python soc.py
 ```
 
+```
+how to python3 install
+https://github.com/daisukenagata/PythonFile
+```
+
 [Reference materials](https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.google.co.jp%2Furl%3Fsa%3Dt%26rct%3Dj%26q%3D%26esrc%3Ds%26source%3Dweb%26cd%3D1%26cad%3Drja%26uact%3D8%26ved%3D0ahUKEwid_YiO3c3YAhVLyLwKHdw1AycQFggoMAA%26url%3Dhttp%253A%252F%252Fdbank.sakura.ne.jp%252FWebSoc.html%26usg%3DAOvVaw1Utj_PK7j38kbIr2zHxACF&h=ATNUe1zWqvjQWKmDtHvHdUf-jc-nIDmf_tnjToHH-99j29w0zHGxIc8rLTWIJG24qyCoWhk35vxhbVCv7_VDTBaUS23fL1_zELtMnIGA2AIk4U6o8IX3_RVclnW2KJDvnEG5iyJzUsvLDQ5r4iFgkK8Js3c_Z7g6P2CTrnyJX_wml1WMlEdLfwTXR81bqTLBP8MtpuPWLdS_ozFROVeQ3kGupMcoSoj_RwO3-h4I0_VgNaNilKSKTcC5PWnqcNdCbtEokh3yotyL9-qVG0kGcNcQcrP5SG4ElQfcQXj_wnzDVH8UkJ_decFJbnGHp1468w)
  
 <img src="https://user-images.githubusercontent.com/16457165/58570199-82920100-8272-11e9-8a12-d71bb34b9f37.gif"  width="1100"  height="500">
