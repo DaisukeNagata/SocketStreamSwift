@@ -6,7 +6,6 @@
 //  Copyright © 2018年 永田大祐. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 extension String {
@@ -33,10 +32,9 @@ public class SocketStream: NSObject {
     public weak var socket: SocketToHost?
     public weak var delegate: SocketStreamDelegate?
 
-    var inputStream: InputStream?
-    var outputStream: OutputStream?
-
-    let maxReadLength = 1024
+    private let maxReadLength = 1024
+    private var inputStream: InputStream?
+    private var outputStream: OutputStream?
 
     public func networkAccept() {
         guard  let soc = socket else { return }
@@ -68,7 +66,7 @@ public class SocketStream: NSObject {
         _ = data?.withUnsafeBytes { _ in outputStream?.write(message, maxLength: message.utf8.count) }
     }
 
-    func stopStream() {
+    private func stopStream() {
         inputStream?.close()
         outputStream?.close()
     }
@@ -107,7 +105,7 @@ extension SocketStream: StreamDelegate {
                                        length: length,
                                        encoding: .utf8,
                                        freeWhenDone: true)?.components(separatedBy: ":"),
-            
+
             let message = stringArray.last else { return nil }
         return Message(message: message)
     }
