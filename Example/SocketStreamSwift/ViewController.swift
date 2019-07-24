@@ -11,6 +11,7 @@ import SocketStreamSwift
 
 extension ViewController: SocketStreamDelegate {
     func receivedMessage(message: Message) {
+        
         indexCount.append(message.message)
         table.reloadData()
     }
@@ -18,15 +19,6 @@ extension ViewController: SocketStreamDelegate {
 
 extension ViewController: MessageInputDelegate {
     func sendMessage(message: String) { extensionString.sendMessage(message: message) }
-}
-
-extension ViewController: SocketToHost {
-    var host: String {
-        get { return "localhost" }
-    }
-    var hostNumber: UInt32 {
-        get { return 8000 }
-    }
 }
 
 extension ViewController: UITextViewDelegate, UITableViewDataSource {
@@ -45,21 +37,19 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
     private var table: UITableView
     private var indexCount: [String]
-    private  var extensionString: SocketStream
+    private var extensionString = SocketStream(url: URL(string:"wss://localhost")!, hostNumber: UInt32(8000))
     @IBOutlet weak var enterField: UITextField!
 
 
     init() {
         self.table = UITableView()
         self.indexCount = [String]()
-        self.extensionString = SocketStream()
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
         self.table = UITableView()
         self.indexCount = [String]()
-        self.extensionString = SocketStream()
         super.init(coder: aDecoder)
     }
 
@@ -76,14 +66,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
             UIApplication.shared.statusBarFrame.height
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(table)
-        extensionString.socket = self
         extensionString.delegate = self
         extensionString.networkAccept()
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        sendMessage(message: textField.text!)
+        sendMessage(message: textField.text ?? "")
         return true
     }
 

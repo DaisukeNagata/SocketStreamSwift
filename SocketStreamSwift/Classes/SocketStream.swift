@@ -25,25 +25,34 @@ public protocol MessageInputDelegate { func sendMessage(message: String) }
 
 public protocol SocketStreamDelegate: class { func receivedMessage(message: Message) }
 
-public protocol SocketToHost: class { var host: String {get}; var hostNumber: UInt32 {get} }
-
 public class SocketStream: NSObject {
 
-    public weak var socket: SocketToHost?
+    let url: URL
+    let hostNumber: UInt32
+
+
+    public init(url: URL, hostNumber: UInt32) {
+        self.url = url
+        self.hostNumber = hostNumber
+        super.init()
+    }
+
     public weak var delegate: SocketStreamDelegate?
 
-    private let maxReadLength = 1024
+    private let maxReadLength = 4096
     private var inputStream: InputStream?
     private var outputStream: OutputStream?
 
     public func networkAccept() {
-        guard  let soc = socket else { return }
+
+        guard let url = url.host else { return }
+    
         var readStream: Unmanaged<CFReadStream>?
         var writeStream: Unmanaged<CFWriteStream>?
 
         CFStreamCreatePairWithSocketToHost(kCFAllocatorDefault,
-                                           soc.host as CFString,
-                                           soc.hostNumber,
+                                           url as CFString,
+                                           hostNumber,
                                            &readStream,
                                            &writeStream)
 
