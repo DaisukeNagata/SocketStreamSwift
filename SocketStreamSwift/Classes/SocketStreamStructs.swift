@@ -3,6 +3,7 @@
 //  SwiftOnWebSocket
 //
 //  Created by 永田大祐 on 2019/07/26.
+//  Copyright © 2018年 永田大祐. All rights reserved.
 //
 
 public struct Message {

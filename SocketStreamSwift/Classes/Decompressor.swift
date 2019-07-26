@@ -1,8 +1,8 @@
 //
-//  SocketStream.swift
+//  Decompressor.swift
 //  SwiftOnWebSocket
 //
-//  Created by 永田大祐 on 2018/01/08.
+//  Created by 永田大祐 on 2019/07/27.
 //  Copyright © 2018年 永田大祐. All rights reserved.
 //
 
