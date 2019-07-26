@@ -94,8 +94,12 @@
 		B1C3BC463157B8E173D39969DDC2C80B /* QuickSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F780876D2683F15D6BC2D791514E7DB /* QuickSpec.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3C071A4F47370E2FECA8B99C651FBEA /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42A7B99EDC0436124E92C6F0D875BF4 /* Configuration.swift */; };
 		B53D204E583D7836146C78F4F2E8E1E6 /* NimbleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4204877CC4E6179C2F5B8DBADEA46AC6 /* NimbleEnvironment.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		BB095A3922EB5B7A0070BAE0 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB095A3422EB5B7A0070BAE0 /* ExtensionString.swift */; };
+		BB095A3A22EB5B7A0070BAE0 /* SocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB095A3522EB5B7A0070BAE0 /* SocketStream.swift */; };
+		BB095A3B22EB5B7A0070BAE0 /* SocketStreamStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB095A3622EB5B7A0070BAE0 /* SocketStreamStructs.swift */; };
+		BB095A3C22EB5B7A0070BAE0 /* Decompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB095A3722EB5B7A0070BAE0 /* Decompressor.swift */; };
+		BB095A3D22EB5B7A0070BAE0 /* SocketStreamProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB095A3822EB5B7A0070BAE0 /* SocketStreamProtocols.swift */; };
 		BB8CCBDD22A338D800A4B9A3 /* SocletStreamSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8CCBDC22A338D800A4B9A3 /* SocletStreamSwift.swift */; };
-		BB8CCBE322A3396500A4B9A3 /* SocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8CCBE222A3396500A4B9A3 /* SocketStream.swift */; };
 		BDB948A0397908D6B4DD99007988798A /* Stringers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B324837A02BE6FA30E0F91E5ACF78D8D /* Stringers.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		BDD9A8FB6C88D6210C7A3CBF8A97B68E /* HaveCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B4656F8C37CC1C4586449890228CDC /* HaveCount.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		C0E5466656C3E4DA9EBB99DB446D1F96 /* QCKDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B97A82AF1340019032C4A9C32236513 /* QCKDSL.m */; };
@@ -272,10 +276,14 @@
 		B828FE03D0E90670A717C955E76EBDF9 /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B82DA1821BE7722BE372D7CF2E242109 /* Behavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Behavior.swift; path = Sources/Quick/Behavior.swift; sourceTree = "<group>"; };
 		B9F690E4B3916C9F59AF253322655F9D /* BeCloseTo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeCloseTo.swift; path = Sources/Nimble/Matchers/BeCloseTo.swift; sourceTree = "<group>"; };
+		BB095A3422EB5B7A0070BAE0 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = SocketStreamSwift/Classes/ExtensionString.swift; sourceTree = "<group>"; };
+		BB095A3522EB5B7A0070BAE0 /* SocketStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocketStream.swift; path = SocketStreamSwift/Classes/SocketStream.swift; sourceTree = "<group>"; };
+		BB095A3622EB5B7A0070BAE0 /* SocketStreamStructs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocketStreamStructs.swift; path = SocketStreamSwift/Classes/SocketStreamStructs.swift; sourceTree = "<group>"; };
+		BB095A3722EB5B7A0070BAE0 /* Decompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Decompressor.swift; path = SocketStreamSwift/Classes/Decompressor.swift; sourceTree = "<group>"; };
+		BB095A3822EB5B7A0070BAE0 /* SocketStreamProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocketStreamProtocols.swift; path = SocketStreamSwift/Classes/SocketStreamProtocols.swift; sourceTree = "<group>"; };
 		BB8CCBDA22A338D800A4B9A3 /* SocletStreamSwift.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocletStreamSwift.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB8CCBDC22A338D800A4B9A3 /* SocletStreamSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocletStreamSwift.swift; sourceTree = "<group>"; };
 		BB8CCBDE22A338D800A4B9A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB8CCBE222A3396500A4B9A3 /* SocketStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocketStream.swift; path = SocketStreamSwift/Classes/SocketStream.swift; sourceTree = "<group>"; };
 		BBC60FE2D396CA753D357EDC676959E1 /* Nimble.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nimble.xcconfig; sourceTree = "<group>"; };
 		BEA4D5491F88D4085201DB33E892ACE9 /* CwlMachBadInstructionHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CwlMachBadInstructionHandler.m; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/CwlMachBadInstructionHandler.m; sourceTree = "<group>"; };
 		C1C6EF6D36ADF67D81E9C661DB4CF8EF /* World+DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "World+DSL.swift"; path = "Sources/Quick/DSL/World+DSL.swift"; sourceTree = "<group>"; };
@@ -462,7 +470,11 @@
 		32EEFF435892CF6B284D3A29EE2C10D1 /* SocketStreamSwift */ = {
 			isa = PBXGroup;
 			children = (
-				BB8CCBE222A3396500A4B9A3 /* SocketStream.swift */,
+				BB095A3722EB5B7A0070BAE0 /* Decompressor.swift */,
+				BB095A3822EB5B7A0070BAE0 /* SocketStreamProtocols.swift */,
+				BB095A3422EB5B7A0070BAE0 /* ExtensionString.swift */,
+				BB095A3522EB5B7A0070BAE0 /* SocketStream.swift */,
+				BB095A3622EB5B7A0070BAE0 /* SocketStreamStructs.swift */,
 				727E5534227B22DD5C934FCD94C1D445 /* Pod */,
 				9B5E091E9E5C985C977575FF693A7471 /* Support Files */,
 			);
@@ -930,8 +942,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB095A3D22EB5B7A0070BAE0 /* SocketStreamProtocols.swift in Sources */,
+				BB095A3C22EB5B7A0070BAE0 /* Decompressor.swift in Sources */,
 				6F4E28928D8EC775BD2B2DFD6807D991 /* SocketStreamSwift-dummy.m in Sources */,
-				BB8CCBE322A3396500A4B9A3 /* SocketStream.swift in Sources */,
+				BB095A3B22EB5B7A0070BAE0 /* SocketStreamStructs.swift in Sources */,
+				BB095A3A22EB5B7A0070BAE0 /* SocketStream.swift in Sources */,
+				BB095A3922EB5B7A0070BAE0 /* ExtensionString.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1151,6 +1167,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A8F21DB0F05CE3FCDAB788104A44860 /* SocketStreamSwift.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1314,6 +1331,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A8F21DB0F05CE3FCDAB788104A44860 /* SocketStreamSwift.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1334,6 +1352,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

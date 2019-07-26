@@ -9,35 +9,12 @@
 import UIKit
 import SocketStreamSwift
 
-extension ViewController: SocketStreamDelegate {
-    func receivedMessage(message: Message) {
-        
-        indexCount.append(message.message)
-        table.reloadData()
-    }
-}
-
-extension ViewController: MessageInputDelegate {
-    func sendMessage(message: String) { extensionString.sendMessage(message: message) }
-}
-
-extension ViewController: UITextViewDelegate, UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return indexCount.count }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.textAlignment = .right
-        cell.textLabel?.text = indexCount[indexPath.row]
-        return cell
-    }
-}
 
 class ViewController: UIViewController,UITextFieldDelegate {
 
     private var table: UITableView
     private var indexCount: [String]
-    private var extensionString = SocketStream(url: URL(string:"wss://localhost")!, hostNumber: UInt32(8000))
+    private var extensionString = SocketStream(url: URL(string:"wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod")!, hostNumber: UInt32(443))
     @IBOutlet weak var enterField: UITextField!
 
 
@@ -72,8 +49,40 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        sendMessage(message: textField.text ?? "")
+        let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
+        let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
+        extensionString.dequeueWrite(dd)
         return true
     }
+    
+}
 
+extension ViewController: SocketStreamDelegate {
+    func receivedMessage(message: Message) {
+        
+        indexCount.append(message.message)
+        table.reloadData()
+    }
+}
+
+extension ViewController: UITextViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return indexCount.count }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.textAlignment = .right
+        cell.textLabel?.text = indexCount[indexPath.row]
+        return cell
+    }
+}
+
+extension String {
+    func replacing() -> String {
+        return self.replacingOccurrences(of: "\n", with: "")
+            .replacingOccurrences(of: "\r", with: "")
+            .replacingOccurrences(of: "\0", with: "")
+            .replacingOccurrences(of: "\\\\", with: "")
+            .replacingOccurrences(of: " ", with: "")
+    }
 }

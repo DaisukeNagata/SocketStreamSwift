@@ -392,6 +392,7 @@
 			baseConfigurationReference = FA26462A2012D2C95CCDFE15 /* Pods-SocketStreamSwift_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SocketStreamSwift/Info.plist;
@@ -409,6 +410,7 @@
 			baseConfigurationReference = 7063A14B4EDE9137ACCC0FAD /* Pods-SocketStreamSwift_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SocketStreamSwift/Info.plist;
