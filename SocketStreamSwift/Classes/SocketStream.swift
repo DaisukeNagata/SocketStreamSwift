@@ -119,28 +119,28 @@ public class SocketStream: NSObject {
     }
 
     private func dequeueWrite(data: Data) {
-            var offset = 2
-            let firstByte: UInt8 = Wss.FinMask | Wss.textFrame
-
-            let dataLength = data.count
-            let frame = NSMutableData(capacity: dataLength + Wss.maxReadLength)
-
-            let buffer = UnsafeMutableRawPointer(frame!.mutableBytes).assumingMemoryBound(to: UInt8.self)
-            buffer[0] = firstByte
-            buffer[1] = CUnsignedChar(dataLength)
-            buffer[1] |= Wss.FinMask
-
-            let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
-            _ = SecRandomCopyBytes(kSecRandomDefault, Int(MemoryLayout<UInt32>.size), maskKey)
-            offset += MemoryLayout<UInt32>.size
-
-            for i in 0..<dataLength {
-                buffer[offset] = data[i] ^ maskKey[i % MemoryLayout<UInt32>.size]
-                offset += 1
-            }
-
-            let writeBuffer = UnsafeRawPointer(frame!.bytes).assumingMemoryBound(to: UInt8.self)
-            self.write(Data(bytes: writeBuffer, count: offset))
+        var offset = 2
+        let firstByte: UInt8 = Wss.FinMask | Wss.textFrame
+        
+        let dataLength = data.count
+        let frame = NSMutableData(capacity: dataLength + Wss.maxReadLength)
+        
+        let buffer = UnsafeMutableRawPointer(frame!.mutableBytes).assumingMemoryBound(to: UInt8.self)
+        buffer[0] = firstByte
+        buffer[1] = CUnsignedChar(dataLength)
+        buffer[1] |= Wss.FinMask
+        
+        let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
+        _ = SecRandomCopyBytes(kSecRandomDefault, Int(MemoryLayout<UInt32>.size), maskKey)
+        offset += MemoryLayout<UInt32>.size
+        
+        for i in 0..<dataLength {
+            buffer[offset] = data[i] ^ maskKey[i % MemoryLayout<UInt32>.size]
+            offset += 1
+        }
+        
+        let writeBuffer = UnsafeRawPointer(frame!.bytes).assumingMemoryBound(to: UInt8.self)
+        self.write(Data(bytes: writeBuffer, count: offset))
     }
 
     private func processInputStream() {
@@ -154,12 +154,10 @@ public class SocketStream: NSObject {
     private func processDequeue() {
         guard let data = inputQueue?[0] else { return }
         let buffer = UnsafeRawPointer((data as NSData).bytes).assumingMemoryBound(to: UInt8.self)
-        if connected {
-            processUnsafePointerInBuffer(buffer, bufferLen: data.count)
-        } else {
-            processUnsafePointer(buffer, bufferLen: data.count)
+        guard connected == false else { processUnsafePointerInBuffer(buffer, bufferLen: data.count)
+            return
         }
-        inputQueue = inputQueue?.filter{ $0 != data }
+        processUnsafePointer(buffer, bufferLen: data.count)
     }
 
     private func processUnsafePointer(_ buffer: UnsafePointer<UInt8>, bufferLen: Int) {
