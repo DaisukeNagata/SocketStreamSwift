@@ -11,6 +11,7 @@ public protocol SocketStreamDelegate: class { func receivedMessage(message: Mess
 public protocol ReadAndWriteToSocket: class {
     func read()
     func stopStream()
+    func streamUpdate()
     func write(_ data: Data)
     func dequeueWrite(_ data: Data)
     func sendMessage(message: String)

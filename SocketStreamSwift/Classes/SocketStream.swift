@@ -73,7 +73,7 @@ public class SocketStream: NSObject {
         let buffer = UnsafeRawPointer((data as NSData).bytes).assumingMemoryBound(to: UInt8.self)
         outStream.write(buffer, maxLength: data.count)
     }
-    
+
     public func cleanup() {
         if let stream = inputStream {
             stream.delegate = nil
@@ -94,12 +94,12 @@ public class SocketStream: NSObject {
         dequeueWrite(data: data)
     }
 
-    @objc func streamUpdate() {
+    @objc public func streamUpdate() {
         cleanup()
         connected = false
         networkAccept()
     }
-    
+
     @objc func changedAppStatus(_ notification: Notification) {
         if notification.name == UIApplication.didEnterBackgroundNotification {
              stopStream()
