@@ -13,6 +13,7 @@ public class SocketStream: NSObject {
     private let url: URL
     private let hostNumber: UInt32
 
+    private var timer           : Timer?
     private var connected: Bool = false
     private var inputQueue      : [Data]?
     private var inputStream     : InputStream?
@@ -63,8 +64,32 @@ public class SocketStream: NSObject {
         let buffer = UnsafeRawPointer((data as NSData).bytes).assumingMemoryBound(to: UInt8.self)
         outStream.write(buffer, maxLength: data.count)
     }
+    
+    public func cleanup() {
+        if let stream = inputStream {
+            stream.delegate = nil
+            CFReadStreamSetDispatchQueue(stream, nil)
+            stream.close()
+        }
+        if let stream = outputStream {
+            stream.delegate = nil
+            CFWriteStreamSetDispatchQueue(stream, nil)
+            stream.close()
+        }
+        inputStream?.close()
+        outputStream?.close()
+    }
 
-    public func dequeueWrite(_ data: Data) { dequeueWrite(data: data) }
+    public func dequeueWrite(_ data: Data) {
+        self.timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(streamUpdate), userInfo: nil, repeats: true)
+        dequeueWrite(data: data)
+    }
+
+    @objc func streamUpdate() {
+        cleanup()
+        connected = false
+        networkAccept()
+    }
 
     public func read() -> Data? {
         guard let stream = inputStream else {return nil}
@@ -78,6 +103,7 @@ public class SocketStream: NSObject {
     public func stopStream() {
         inputStream?.close()
         outputStream?.close()
+        self.timer?.invalidate()
     }
 
     private func httpBodySetting() {
