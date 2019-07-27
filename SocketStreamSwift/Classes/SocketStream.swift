@@ -29,17 +29,14 @@ public class SocketStream: NSObject {
         self.hostNumber = hostNumber
         super.init()
         
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(changedAppStatus(_:)),
-                         name: UIApplication.protectedDataDidBecomeAvailableNotification,
-                         object: nil)
-        
-        NotificationCenter.default
-            .addObserver(self,
-                         selector: #selector(changedAppStatus(_:)),
-                         name: UIApplication.protectedDataWillBecomeUnavailableNotification,
-                         object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changedAppStatus(_:)),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changedAppStatus(_:)),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
     }
 
     public func networkAccept() {
@@ -104,11 +101,10 @@ public class SocketStream: NSObject {
     }
     
     @objc func changedAppStatus(_ notification: Notification) {
-        if notification.name == UIApplication.willEnterForegroundNotification {
-            streamUpdate()
-            
-        } else if notification.name == UIApplication.didEnterBackgroundNotification {
-            stopStream()
+        if notification.name == UIApplication.didEnterBackgroundNotification {
+             stopStream()
+        } else if notification.name == UIApplication.willEnterForegroundNotification {
+             streamUpdate()
         }
     }
 
