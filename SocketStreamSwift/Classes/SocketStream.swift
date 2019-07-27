@@ -13,11 +13,6 @@ public class SocketStream: NSObject {
     private let url: URL
     private let hostNumber: UInt32
 
-    private let maxReadLength : Int     = 4096
-    private let FinMask       : UInt8   = 0x80
-    private let textFrame     : UInt8   = 0x1
-    private let PayloadLenMask: UInt8   = 0x7F
-
     private var connected: Bool = false
     private var inputQueue      : [Data]?
     private var inputStream     : InputStream?
@@ -73,11 +68,16 @@ public class SocketStream: NSObject {
 
     public func read() -> Data? {
         guard let stream = inputStream else {return nil}
-        guard let buf = NSMutableData(capacity: maxReadLength) else {return nil}
+        guard let buf = NSMutableData(capacity:Wss.maxReadLength) else {return nil}
         let buffer = UnsafeMutableRawPointer(mutating: buf.bytes ).assumingMemoryBound(to: UInt8.self)
-        let length = stream.read(buffer, maxLength: maxReadLength)
+        let length = stream.read(buffer, maxLength: Wss.maxReadLength)
         if length < 1 { return nil }
         return Data(bytes: buffer, count: length)
+    }
+    
+    public func stopStream() {
+        inputStream?.close()
+        outputStream?.close()
     }
 
     private func httpBodySetting() {
@@ -118,22 +118,17 @@ public class SocketStream: NSObject {
         return baseKey
     }
 
-    private func stopStream() {
-        inputStream?.close()
-        outputStream?.close()
-    }
-
     private func dequeueWrite(data: Data) {
             var offset = 2
-            let firstByte: UInt8 = self.FinMask | self.textFrame
+            let firstByte: UInt8 = Wss.FinMask | Wss.textFrame
 
             let dataLength = data.count
-            let frame = NSMutableData(capacity: dataLength + self.maxReadLength)
+            let frame = NSMutableData(capacity: dataLength + Wss.maxReadLength)
 
             let buffer = UnsafeMutableRawPointer(frame!.mutableBytes).assumingMemoryBound(to: UInt8.self)
             buffer[0] = firstByte
             buffer[1] = CUnsignedChar(dataLength)
-            buffer[1] |= self.FinMask
+            buffer[1] |= Wss.FinMask
 
             let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
             _ = SecRandomCopyBytes(kSecRandomDefault, Int(MemoryLayout<UInt32>.size), maskKey)
@@ -222,7 +217,7 @@ public class SocketStream: NSObject {
         guard let baseAddress = buffer.baseAddress else {return}
         let data: Data
         let offset = 2
-        let len = (PayloadLenMask & baseAddress[1])
+        let len = (Wss.PayloadLenMask & baseAddress[1])
 
         do {
             data = try compressionState.decompressor?.decompress(bytes: baseAddress+offset, count: Int(len)) ?? Data()

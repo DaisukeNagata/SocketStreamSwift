@@ -12,6 +12,7 @@ public struct Message {
 }
 
 struct Wss {
+    static var headerSecKey          = ""
     static let headerUpgrade         = "Upgrade"
     static let headerUpgradeValue    = "websocket"
     static let headerHost            = "Host"
@@ -24,7 +25,10 @@ struct Wss {
     static let headerKey             = "Sec-WebSocket-Key"
     static let headerOrigin          = "Origin"
     static let headerAccept          = "Sec-WebSocket-Accept"
-    static var headerSecKey          = ""
+    static let maxReadLength : Int   = 4096
+    static let FinMask       : UInt8 = 0x80
+    static let textFrame     : UInt8 = 0x1
+    static let PayloadLenMask: UInt8 = 0x7F
 }
 
 struct CompressionState {
