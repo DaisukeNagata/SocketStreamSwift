@@ -20,8 +20,9 @@ public class SocketStream: NSObject {
     private var outputStream    : OutputStream?
     private var mutableBuffer   : NSMutableData?
 
-    private var compressionState = CompressionState()
-    public weak var delegate     : SocketStreamDelegate?
+    private var compressionState       = CompressionState()
+    public weak var delegate          : SocketStreamDelegate?
+    public weak var unConnected       : EroorUnconnected?
 
 
     public init(url: URL, hostNumber: UInt32) {
@@ -70,17 +71,6 @@ public class SocketStream: NSObject {
         }
     }
 
-    public func write(_ data: Data) {
-        guard let outStream = outputStream else { return }
-        let buffer = UnsafeRawPointer((data as NSData).bytes).assumingMemoryBound(to: UInt8.self)
-        outStream.write(buffer, maxLength: data.count)
-    }
-
-    public func sendMessage(_ message: String) {
-        let data = "\(message)".data(using: .utf8)
-        _ = data?.withUnsafeBytes { _ in outputStream?.write(message, maxLength: message.utf8.count) }
-    }
-
     public func cleanup() {
         if let stream = inputStream {
             stream.delegate = nil
@@ -96,38 +86,12 @@ public class SocketStream: NSObject {
         outputStream?.close()
     }
 
-    public func dequeueWrite(_ data: Data) {
-        self.timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(streamUpdate), userInfo: nil, repeats: true)
-        dequeueWrite(data: data)
-    }
-
-    @objc public func streamUpdate() {
-        cleanup()
-        connected = false
-        networkAccept()
-    }
-
     @objc func changedAppStatus(_ notification: Notification) {
         if notification.name == UIApplication.didEnterBackgroundNotification {
              stopStream()
         } else if notification.name == UIApplication.willEnterForegroundNotification {
              streamUpdate()
         }
-    }
-
-    public func read() -> Data? {
-        guard let stream = inputStream else {return nil}
-        guard let buf = NSMutableData(capacity: Wss.maxReadLength) else {return nil}
-        let buffer = UnsafeMutableRawPointer(mutating: buf.bytes).assumingMemoryBound(to: UInt8.self)
-        let length = stream.read(buffer, maxLength: Wss.maxReadLength)
-        if length < 1 { return nil }
-        return Data(bytes: buffer, count: length)
-    }
-    
-    public func stopStream() {
-        inputStream?.close()
-        outputStream?.close()
-        self.timer?.invalidate()
     }
 
     private func httpBodySetting() {
@@ -297,7 +261,7 @@ extension SocketStream: StreamDelegate {
                 readBytes(stream: aStream as? InputStream)
             }
         case Stream.Event.endEncountered: stopStream()
-        case Stream.Event.errorOccurred: break
+        case Stream.Event.errorOccurred: unConnected?.errorOccurred()
         case Stream.Event.hasSpaceAvailable: break
         default: break
         }
@@ -305,6 +269,49 @@ extension SocketStream: StreamDelegate {
 
 }
 
+// MARK: ReadAndWriteToSocket
+extension SocketStream: ReadAndWriteToSocket {
+
+    public func read() -> Data? {
+        guard let stream = inputStream else {return nil}
+        guard let buf = NSMutableData(capacity: Wss.maxReadLength) else {return nil}
+        let buffer = UnsafeMutableRawPointer(mutating: buf.bytes).assumingMemoryBound(to: UInt8.self)
+        let length = stream.read(buffer, maxLength: Wss.maxReadLength)
+        if length < 1 { return nil }
+        return Data(bytes: buffer, count: length)
+    }
+
+    public func stopStream() {
+        inputStream?.close()
+        outputStream?.close()
+        self.timer?.invalidate()
+    }
+
+    @objc public func streamUpdate() {
+        cleanup()
+        connected = false
+        networkAccept()
+    }
+
+    public func write(_ data: Data) {
+        guard let outStream = outputStream else { return }
+        let buffer = UnsafeRawPointer((data as NSData).bytes).assumingMemoryBound(to: UInt8.self)
+        outStream.write(buffer, maxLength: data.count)
+    }
+
+    public func dequeueWrite(_ data: Data) {
+        self.timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(streamUpdate), userInfo: nil, repeats: true)
+        dequeueWrite(data: data)
+    }
+
+    public func sendMessage(_ message: String) {
+        let data = "\(message)".data(using: .utf8)
+        _ = data?.withUnsafeBytes { _ in outputStream?.write(message, maxLength: message.utf8.count) }
+    }
+
+}
+
+// MARK: loaclhost
 extension SocketStream {
 
     private func readBytes(stream: InputStream? = nil) {
@@ -333,4 +340,9 @@ extension SocketStream {
         return Message(message: message)
     }
 
+}
+
+// MARK: EroorUnconnected
+extension SocketStream: EroorUnconnected {
+    public func errorOccurred() { }
 }

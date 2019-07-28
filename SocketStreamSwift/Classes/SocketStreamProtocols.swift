@@ -11,10 +11,12 @@ public protocol MessageInputDelegate { func sendMessage(message: String) }
 public protocol SocketStreamDelegate: class { func receivedMessage(message: Message) }
 
 public protocol ReadAndWriteToSocket: class {
-    func read()
+    func read() ->Data?
     func stopStream()
     func streamUpdate()
     func write(_ data: Data)
     func dequeueWrite(_ data: Data)
     func sendMessage(_ message: String)
 }
+
+public protocol EroorUnconnected: class { func errorOccurred() }
