@@ -36,17 +36,16 @@ class Decompressor {
 
     private func decompress(bytes: UnsafePointer<UInt8>, count: Int, out:inout Data) throws {
         var res:CInt = 0
-        defer {
-            strm.next_out = UnsafeMutablePointer<UInt8>(&buffer)
-            strm.avail_out = CUnsignedInt(buffer.count)
-            
-            res = inflate(&strm, 0)
-            
-            let byteCount = buffer.count - Int(strm.avail_out)
-            out.append(buffer, count: byteCount)
-        }
         strm.next_in = UnsafeMutablePointer<UInt8>(mutating: bytes)
         strm.avail_in = CUnsignedInt(count)
+
+        strm.next_out = UnsafeMutablePointer<UInt8>(&buffer)
+        strm.avail_out = CUnsignedInt(buffer.count)
+        
+        res = inflate(&strm, 0)
+        
+        let byteCount = buffer.count - Int(strm.avail_out)
+        out.append(buffer, count: byteCount)
     }
 
 }
