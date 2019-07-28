@@ -6,6 +6,8 @@
 //  Copyright © 2018年 永田大祐. All rights reserved.
 //
 
+public protocol MessageInputDelegate { func sendMessage(message: String) }
+
 public protocol SocketStreamDelegate: class { func receivedMessage(message: Message) }
 
 public protocol ReadAndWriteToSocket: class {
@@ -14,5 +16,5 @@ public protocol ReadAndWriteToSocket: class {
     func streamUpdate()
     func write(_ data: Data)
     func dequeueWrite(_ data: Data)
-    func sendMessage(message: String)
+    func sendMessage(_ message: String)
 }
