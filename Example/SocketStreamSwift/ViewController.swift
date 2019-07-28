@@ -12,9 +12,16 @@ import SocketStreamSwift
 
 class ViewController: UIViewController,UITextFieldDelegate {
 
+    // AWS RealURL "wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod", port = 443
+    private var url = "wss://localhost"
+    private var port = 8000
     private var table: UITableView
     private var indexCount: [String]
-    private var extensionString = SocketStream(url: URL(string:"wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod")!, hostNumber: UInt32(443))
+    private lazy var extensionString: SocketStream = {
+       let e = SocketStream(url: URL(string:url)!, hostNumber: UInt32(port))
+        return e
+    }()
+
     @IBOutlet weak var enterField: UITextField!
 
 
@@ -49,17 +56,25 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
-        let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
-        extensionString.dequeueWrite(dd)
+        if port == 443 {
+            let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
+            let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
+            extensionString.dequeueWrite(dd)
+        } else {
+           sendMessage(message: textField.text!)
+        }
         return true
     }
     
 }
 
+extension ViewController: MessageInputDelegate {
+    func sendMessage(message: String) { extensionString.sendMessage(message) }
+}
+
 extension ViewController: SocketStreamDelegate {
     func receivedMessage(message: Message) {
-        
+
         indexCount.append(message.message)
         table.reloadData()
     }
@@ -74,15 +89,5 @@ extension ViewController: UITextViewDelegate, UITableViewDataSource {
         cell.textLabel?.textAlignment = .right
         cell.textLabel?.text = indexCount[indexPath.row]
         return cell
-    }
-}
-
-extension String {
-    func replacing() -> String {
-        return self.replacingOccurrences(of: "\n", with: "")
-            .replacingOccurrences(of: "\r", with: "")
-            .replacingOccurrences(of: "\0", with: "")
-            .replacingOccurrences(of: "\\\\", with: "")
-            .replacingOccurrences(of: " ", with: "")
     }
 }
