@@ -21,8 +21,8 @@ def server_start():
                                          args=(con, address),
                                          daemon=True)
             handle_thread.start()
-            data = con.recv(1024)
         
+            data = con.recv(4096)
         except ConnectionResetError:
             con.close()
             clients.remove((con, address))
@@ -37,7 +37,7 @@ def handler(con, address):
     
     while True:
         try:
-            data = con.recv(1024)
+            data = con.recv(4096)
         except ConnectionResetError:
             clients.remove((con, address))
             remove_conection(con, address)
