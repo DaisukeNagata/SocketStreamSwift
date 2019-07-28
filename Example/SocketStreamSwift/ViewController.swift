@@ -51,6 +51,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(table)
         extensionString.delegate = self
+        extensionString.unConnected = self
         extensionString.networkAccept()
     }
 
@@ -68,10 +69,12 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
 }
 
+// MARK: MessageInputDelegate
 extension ViewController: MessageInputDelegate {
     func sendMessage(message: String) { extensionString.sendMessage(message) }
 }
 
+// MARK: SocketStreamDelegate
 extension ViewController: SocketStreamDelegate {
     func receivedMessage(message: Message) {
 
@@ -91,3 +94,11 @@ extension ViewController: UITextViewDelegate, UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: EroorUnconnected
+extension ViewController: EroorUnconnected {
+    func errorOccurred() {
+        print("errorOccurred")
+    }
+}
+
