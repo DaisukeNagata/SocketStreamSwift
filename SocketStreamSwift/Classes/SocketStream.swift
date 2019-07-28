@@ -56,22 +56,29 @@ public class SocketStream: NSObject {
 
         inputStream?.delegate = self
         outputStream?.delegate = self
-
-        inputStream?.setProperty(StreamSocketSecurityLevel.negotiatedSSL as AnyObject, forKey: Stream.PropertyKey.socketSecurityLevelKey)
-        outputStream?.setProperty(StreamSocketSecurityLevel.negotiatedSSL as AnyObject, forKey: Stream.PropertyKey.socketSecurityLevelKey)
-
+        
         inputStream?.schedule(in: .main, forMode: RunLoop.Mode.common)
         outputStream?.schedule(in: .main, forMode: RunLoop.Mode.common)
 
         inputStream?.open()
         outputStream?.open()
-        httpBodySetting()
+        
+        if hostNumber == 443 {
+            inputStream?.setProperty(StreamSocketSecurityLevel.negotiatedSSL as AnyObject, forKey: Stream.PropertyKey.socketSecurityLevelKey)
+            outputStream?.setProperty(StreamSocketSecurityLevel.negotiatedSSL as AnyObject, forKey: Stream.PropertyKey.socketSecurityLevelKey)
+            httpBodySetting()
+        }
     }
 
     public func write(_ data: Data) {
         guard let outStream = outputStream else { return }
         let buffer = UnsafeRawPointer((data as NSData).bytes).assumingMemoryBound(to: UInt8.self)
         outStream.write(buffer, maxLength: data.count)
+    }
+
+    public func sendMessage(_ message: String) {
+        let data = "\(message)".data(using: .utf8)
+        _ = data?.withUnsafeBytes { _ in outputStream?.write(message, maxLength: message.utf8.count) }
     }
 
     public func cleanup() {
@@ -110,8 +117,8 @@ public class SocketStream: NSObject {
 
     public func read() -> Data? {
         guard let stream = inputStream else {return nil}
-        guard let buf = NSMutableData(capacity:Wss.maxReadLength) else {return nil}
-        let buffer = UnsafeMutableRawPointer(mutating: buf.bytes ).assumingMemoryBound(to: UInt8.self)
+        guard let buf = NSMutableData(capacity: Wss.maxReadLength) else {return nil}
+        let buffer = UnsafeMutableRawPointer(mutating: buf.bytes).assumingMemoryBound(to: UInt8.self)
         let length = stream.read(buffer, maxLength: Wss.maxReadLength)
         if length < 1 { return nil }
         return Data(bytes: buffer, count: length)
@@ -283,12 +290,47 @@ extension SocketStream: StreamDelegate {
 
     public func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         switch eventCode {
-        case Stream.Event.hasBytesAvailable: processInputStream()
+        case Stream.Event.hasBytesAvailable:
+            if hostNumber == 443 {
+                processInputStream()
+            } else {
+                readBytes(stream: aStream as? InputStream)
+            }
         case Stream.Event.endEncountered: stopStream()
         case Stream.Event.errorOccurred: break
         case Stream.Event.hasSpaceAvailable: break
         default: break
         }
+    }
+
+}
+
+extension SocketStream {
+
+    private func readBytes(stream: InputStream? = nil) {
+
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: Wss.maxReadLength)
+
+        while stream?.hasBytesAvailable ?? false {
+
+            let numberOfBytesRead = inputStream?.read(buffer, maxLength: Wss.maxReadLength)
+
+            if numberOfBytesRead ?? 0 < 0 {
+                if let _ = inputStream?.streamError { break }
+            }
+    
+            if let message = processedAccpect(buffer: buffer, length: numberOfBytesRead ?? 0) { delegate?.receivedMessage(message: message) }
+        }
+    }
+
+    private func processedAccpect(buffer: UnsafeMutablePointer<UInt8>, length: Int) -> Message? {
+        guard let stringArray = String(bytesNoCopy: buffer,
+                                       length: length,
+                                       encoding: .utf8,
+                                       freeWhenDone: true)?.components(separatedBy: ":"),
+
+            let message = stringArray.last else { return nil }
+        return Message(message: message)
     }
 
 }
