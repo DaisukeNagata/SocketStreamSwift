@@ -215,7 +215,7 @@ public class SocketStream: NSObject {
 
         let sha = "\(Wss.headerSecKey)258EAFA5-E914-47DA-95CA-C5AB0DC85B11".sha1Base64()
         let acceptKey = headers[Wss.headerAccept.lowercased()]
-        if sha != acceptKey ?? "" { return -1 }
+        guard sha == acceptKey ?? "" else { return -1 }
 
         return 0
     }
