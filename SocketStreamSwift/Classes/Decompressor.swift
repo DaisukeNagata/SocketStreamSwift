@@ -19,11 +19,6 @@ class Decompressor {
         inflateInit2_(&strm, -CInt(compressionState.serverMaxWindowBits), ZLIB_VERSION, Int32(MemoryLayout<z_stream>.size))
     }
 
-    func decompress(_ data: Data, finish: Bool) throws -> Data {
-        return try data.withUnsafeBytes{ _ in
-              return try decompress(bytes: UnsafeMutablePointer<UInt8>(&buffer), count: data.count)
-        }
-    }
 
     func decompress(bytes: UnsafePointer<UInt8>, count: Int) throws -> Data {
         var decompressed = Data()
