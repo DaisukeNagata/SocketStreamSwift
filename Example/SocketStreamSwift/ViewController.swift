@@ -96,7 +96,7 @@ extension ViewController: UITextViewDelegate, UITableViewDataSource {
 }
 
 // MARK: EroorUnconnected
-extension ViewController: EroorUnconnected {
+extension ViewController: ErrorUnconnected {
     func errorOccurred() {
         print("errorOccurred")
     }
