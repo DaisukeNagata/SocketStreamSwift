@@ -19,4 +19,4 @@ public protocol ReadAndWriteToSocket: class {
     func sendMessage(_ message: String)
 }
 
-public protocol EroorUnconnected: class { func errorOccurred() }
+public protocol ErrorUnconnected: class { func errorOccurred() }

@@ -22,7 +22,7 @@ public class SocketStream: NSObject {
 
     private var compressionState       = CompressionState()
     public weak var delegate          : SocketStreamDelegate?
-    public weak var unConnected       : EroorUnconnected?
+    public weak var unConnected       : ErrorUnconnected?
 
 
     public init(url: URL, hostNumber: UInt32) {
@@ -343,6 +343,6 @@ extension SocketStream {
 }
 
 // MARK: EroorUnconnected
-extension SocketStream: EroorUnconnected {
+extension SocketStream: ErrorUnconnected {
     public func errorOccurred() { }
 }
