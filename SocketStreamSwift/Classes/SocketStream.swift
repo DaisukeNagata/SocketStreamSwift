@@ -142,7 +142,6 @@ public class SocketStream: NSObject {
         buffer[1] = CUnsignedChar(dataLength)
         buffer[1] |= Wss.FinMask
         
-        
         let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
         offset += MemoryLayout<UInt32>.size
         
@@ -187,13 +186,11 @@ public class SocketStream: NSObject {
     }
 
     private func processCheck(_ buffer: UnsafePointer<UInt8>, bufferLen: Int) -> Int {
-        if bufferLen > 0 {
-            let code = processValidate(buffer, bufferLen: bufferLen)
-            if code != 0 { return code }
-            connected = true
-            return 0
-        }
-        return -1
+        guard bufferLen > 0 else { return -1 }
+        let code = processValidate(buffer, bufferLen: bufferLen)
+        guard code == 0 else { return -1 }
+        connected = true
+        return 0
     }
 
     private func processValidate(_ buffer: UnsafePointer<UInt8>, bufferLen: Int) -> Int {
