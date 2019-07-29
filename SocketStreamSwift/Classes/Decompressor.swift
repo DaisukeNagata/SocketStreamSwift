@@ -37,8 +37,10 @@ class Decompressor {
         strm.next_out = UnsafeMutablePointer<UInt8>(&buffer)
         strm.avail_out = CUnsignedInt(buffer.count)
 
-        _ = inflate(&strm, 0)
         
+        let res = inflate(&strm, 0)
+        guard res == Z_OK else { return }
+
         let byteCount = buffer.count - Int(strm.avail_out)
         out.append(buffer, count: byteCount)
     }
