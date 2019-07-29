@@ -82,8 +82,6 @@ public class SocketStream: NSObject {
             CFWriteStreamSetDispatchQueue(stream, nil)
             stream.close()
         }
-        inputStream?.close()
-        outputStream?.close()
     }
 
     @objc func changedAppStatus(_ notification: Notification) {
