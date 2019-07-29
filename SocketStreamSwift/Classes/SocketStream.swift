@@ -233,7 +233,7 @@ public class SocketStream: NSObject {
         }
 
         mutableBuffer = NSMutableData(data: data)
-        _ = processResponse(mutableBuffer ?? NSMutableData())
+        processResponse(mutableBuffer ?? NSMutableData())
         
     }
 
