@@ -142,8 +142,8 @@ public class SocketStream: NSObject {
         buffer[1] = CUnsignedChar(dataLength)
         buffer[1] |= Wss.FinMask
         
+        
         let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
-        _ = SecRandomCopyBytes(kSecRandomDefault, Int(MemoryLayout<UInt32>.size), maskKey)
         offset += MemoryLayout<UInt32>.size
         
         for i in 0..<dataLength {
