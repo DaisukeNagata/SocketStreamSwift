@@ -10,11 +10,11 @@ import UIKit
 import SocketStreamSwift
 
 
-class ViewController: UIViewController,UITextFieldDelegate {
+class ViewController: UIViewController {
 
     // AWS RealURL "wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod", port = 443
-    private var url = "wss://localhost"
-    private var port = 8000
+    private var url = "localhost"
+    private var port = 443
     private var table: UITableView
     private var indexCount: [String]
     private lazy var extensionString: SocketStream = {
@@ -55,19 +55,8 @@ class ViewController: UIViewController,UITextFieldDelegate {
         extensionString.networkAccept()
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if port == 443 {
-            let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
-            let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
-            extensionString.dequeueWrite(dd)
-        } else {
-           sendMessage(message: textField.text!)
-        }
-        return true
-    }
-    
 }
+
 
 // MARK: MessageInputDelegate
 extension ViewController: MessageInputDelegate {
@@ -83,7 +72,30 @@ extension ViewController: SocketStreamDelegate {
     }
 }
 
-extension ViewController: UITextViewDelegate, UITableViewDataSource {
+// MARK: EroorUnconnected
+extension ViewController: ErrorUnconnected {
+    func errorOccurred() {
+        print("errorOccurred")
+    }
+}
+
+// MARK: textFieldShouldReturn
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if port == 443 {
+            let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
+            let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
+            extensionString.dequeueWrite(dd)
+        } else {
+            sendMessage(message: textField.text!)
+        }
+        return true
+    }
+}
+
+// MARK: UITableViewDataSource
+extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return indexCount.count }
     
@@ -94,11 +106,3 @@ extension ViewController: UITextViewDelegate, UITableViewDataSource {
         return cell
     }
 }
-
-// MARK: EroorUnconnected
-extension ViewController: ErrorUnconnected {
-    func errorOccurred() {
-        print("errorOccurred")
-    }
-}
-
