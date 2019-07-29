@@ -5,6 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/SocketStreamSwift.svg?style=flat)](https://cocoapods.org/pods/SocketStreamSwift)
 [![Platform](https://img.shields.io/cocoapods/p/SocketStreamSwift.svg?style=flat)](https://cocoapods.org/pods/SocketStreamSwift)
 
+
+<p align="center">
+<img width="300" height="400" src="https://user-images.githubusercontent.com/16457165/62090081-80feac80-b2a6-11e9-8193-bbc5c0c6294d.png">
+</p>
+
 # [Reference](https://github.com/daisukenagata/SocketStreamSwift/wiki)
 
 Effort to implement default chat application in Swift5.
