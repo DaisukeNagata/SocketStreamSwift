@@ -10,20 +10,19 @@ import CommonCrypto
 
 public class SocketStream: NSObject {
 
-    public weak var delegate          : SocketStreamDelegate?
-    public weak var unConnected       : ErrorUnconnected?
+    public weak var delegate     : SocketStreamDelegate?
+    public weak var unConnected  : ErrorUnconnected?
 
-    private let url: URL
-    private let hostNumber: UInt32
+    private let url              : URL
+    private let hostNumber       : UInt32
 
-    private var timer           : Timer?
-    private var connected: Bool = false
-    private var inputQueue      : [Data]?
-    private var inputStream     : InputStream?
-    private var outputStream    : OutputStream?
-    private var mutableBuffer   : NSMutableData?
-
-    private var compressionState       = CompressionState()
+    private var timer            : Timer?
+    private var connected: Bool  = false
+    private var inputQueue       : [Data]?
+    private var inputStream      : InputStream?
+    private var outputStream     : OutputStream?
+    private var mutableBuffer    : NSMutableData?
+    private var compressionState = CompressionState()
 
 
     public init(url: URL, hostNumber: UInt32) {
