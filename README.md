@@ -13,7 +13,7 @@
 # [Reference](https://github.com/daisukenagata/SocketStreamSwift/wiki)
 ### SocketStream Blueprint 
 <p align="center">
-<img width="900" height="900" src="https://user-images.githubusercontent.com/16457165/62125548-69f0a680-b308-11e9-8a92-1418eabb58c9.png">
+<img width="900" height="900" src="https://user-images.githubusercontent.com/16457165/62173410-efa83c80-b370-11e9-8dce-41f86556446a.png">
 </p>
 
 ### Decompressor Blueprint 
