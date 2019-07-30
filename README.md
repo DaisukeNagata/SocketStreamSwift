@@ -12,6 +12,9 @@
 
 # [Reference](https://github.com/daisukenagata/SocketStreamSwift/wiki)
 
+- ## [SocketStream Blueprint](https://user-images.githubusercontent.com/16457165/62099878-87068480-b2ca-11e9-9a35-05f4893c616d.png)
+- ## [Decompressor Blueprint](https://user-images.githubusercontent.com/16457165/62094662-cfb54200-b2b8-11e9-841c-39bcd1857429.png)
+
 Effort to implement default chat application in Swift5.
 
 開発環境　Swift5.0 Python3.7.3  how to python3 install
