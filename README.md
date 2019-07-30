@@ -11,9 +11,15 @@
 </p>
 
 # [Reference](https://github.com/daisukenagata/SocketStreamSwift/wiki)
+### SocketStream Blueprint 
+<p align="center">
+<img width="900" height="900" src="https://user-images.githubusercontent.com/16457165/62100088-2c215d00-b2cb-11e9-8332-36a63f8abd94.png">
+</p>
 
-- ## [SocketStream Blueprint](https://user-images.githubusercontent.com/16457165/62099878-87068480-b2ca-11e9-9a35-05f4893c616d.png)
-- ## [Decompressor Blueprint](https://user-images.githubusercontent.com/16457165/62094662-cfb54200-b2b8-11e9-841c-39bcd1857429.png)
+### Decompressor Blueprint 
+<p align="center">
+<img width="500" height="500" src="https://user-images.githubusercontent.com/16457165/62094662-cfb54200-b2b8-11e9-841c-39bcd1857429.png">
+</p>
 
 Effort to implement default chat application in Swift5.
 
