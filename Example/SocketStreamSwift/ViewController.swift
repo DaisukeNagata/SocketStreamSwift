@@ -13,47 +13,39 @@ import SocketStreamSwift
 class ViewController: UIViewController {
 
     // AWS RealURL "wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod", port = 443
-    private var url = "localhost"
+    private var url = "wss://localhost"
     private var port = 8000
-    private var table: UITableView
-    private var indexCount: [String]
+    private var indexCount = [String]()
+
+    private lazy var table: UITableView = {
+        let table = UITableView()
+        table.dataSource = self
+        table.frame = view.frame
+        table.separatorStyle = .none
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        view.addSubview(table)
+        return table
+    }()
+
     private lazy var socketStream: SocketStream = {
        let e = SocketStream(url: URL(string:url)!, hostNumber: UInt32(port))
+        e.delegate = self
+        e.delegate = self
+        e.unConnected = self
+        e.networkAccept()
         return e
     }()
 
-    @IBOutlet weak var enterField: UITextField!
-
-
-    init() {
-        self.table = UITableView()
-        self.indexCount = [String]()
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        self.table = UITableView()
-        self.indexCount = [String]()
-        super.init(coder: aDecoder)
+    @IBOutlet weak var enterField: UITextField! {
+        didSet {
+            enterField.delegate = self
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        enterField.delegate = self
-        table.dataSource = self
-        table.frame = view.frame
-        table.separatorStyle = .none
-        table.frame.origin.y =
-            enterField.frame.origin.y +
-            enterField.frame.height +
-            UIApplication.shared.statusBarFrame.height
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        view.addSubview(table)
-
-        socketStream.delegate = self
-        socketStream.unConnected = self
-        socketStream.networkAccept()
+        table.frame.origin.y = enterField.frame.origin.y + enterField.frame.height + UIApplication.shared.statusBarFrame.height
     }
 
 }
