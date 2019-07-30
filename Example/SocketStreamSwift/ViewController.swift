@@ -9,7 +9,6 @@
 import UIKit
 import SocketStreamSwift
 
-
 class ViewController: UIViewController {
 
     // AWS RealURL "wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod", port = 443
@@ -50,7 +49,6 @@ class ViewController: UIViewController {
 
 }
 
-
 // MARK: MessageInputDelegate
 extension ViewController: MessageInputDelegate {
     func sendMessage(message: String) { socketStream.sendMessage(message) }
@@ -89,9 +87,9 @@ extension ViewController: UITextFieldDelegate {
 
 // MARK: UITableViewDataSource
 extension ViewController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return indexCount.count }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.textAlignment = .right
