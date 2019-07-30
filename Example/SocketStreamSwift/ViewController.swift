@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     private var port = 8000
     private var table: UITableView
     private var indexCount: [String]
-    private lazy var extensionString: SocketStream = {
+    private lazy var socketStream: SocketStream = {
        let e = SocketStream(url: URL(string:url)!, hostNumber: UInt32(port))
         return e
     }()
@@ -50,9 +50,10 @@ class ViewController: UIViewController {
             UIApplication.shared.statusBarFrame.height
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(table)
-        extensionString.delegate = self
-        extensionString.unConnected = self
-        extensionString.networkAccept()
+
+        socketStream.delegate = self
+        socketStream.unConnected = self
+        socketStream.networkAccept()
     }
 
 }
@@ -60,7 +61,7 @@ class ViewController: UIViewController {
 
 // MARK: MessageInputDelegate
 extension ViewController: MessageInputDelegate {
-    func sendMessage(message: String) { extensionString.sendMessage(message) }
+    func sendMessage(message: String) { socketStream.sendMessage(message) }
 }
 
 // MARK: SocketStreamDelegate
@@ -86,7 +87,7 @@ extension ViewController: UITextFieldDelegate {
         if port == 443 {
             let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
             let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
-            extensionString.dequeueWrite(dd)
+            socketStream.dequeueWrite(dd)
         } else {
             sendMessage(message: textField.text!)
         }
