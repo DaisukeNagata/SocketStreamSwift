@@ -40,6 +40,14 @@ public class SocketStream: NSObject {
                                                object: nil)
     }
 
+    @objc func changedAppStatus(_ notification: Notification) {
+        if notification.name == UIApplication.didEnterBackgroundNotification {
+            stopStream()
+        } else if notification.name == UIApplication.willEnterForegroundNotification {
+            streamUpdate()
+        }
+    }
+
     public func networkAccept() {
         guard let url = url.host else { return }
 
@@ -71,33 +79,12 @@ public class SocketStream: NSObject {
         }
     }
 
-    public func cleanup() {
-        if let stream = inputStream {
-            stream.delegate = nil
-            CFReadStreamSetDispatchQueue(stream, nil)
-            stream.close()
-        }
-        if let stream = outputStream {
-            stream.delegate = nil
-            CFWriteStreamSetDispatchQueue(stream, nil)
-            stream.close()
-        }
-    }
-
-    @objc func changedAppStatus(_ notification: Notification) {
-        if notification.name == UIApplication.didEnterBackgroundNotification {
-             stopStream()
-        } else if notification.name == UIApplication.willEnterForegroundNotification {
-             streamUpdate()
-        }
-    }
-
     private func httpBodySetting() {
         var request = URLRequest(url: url)
         request.setValue(url.absoluteString, forHTTPHeaderField: Wss.headerOrigin)
         request.setValue(Wss.headerUpgradeValue, forHTTPHeaderField: Wss.headerUpgrade)
         request.setValue(Wss.headerConnectionValue, forHTTPHeaderField: Wss.headerConnection)
-        Wss.headerSecKey = generateWebSocketKey()
+        Wss.headerSecKey = String().generateWebSocketKey()
         request.setValue(Wss.headerVersionValue, forHTTPHeaderField: Wss.headerVersion)
         request.setValue(Wss.headerSecKey, forHTTPHeaderField: Wss.headerKey)
 
@@ -123,11 +110,18 @@ public class SocketStream: NSObject {
         httpBody += "\r\n"
         write(httpBody.data(using: .utf8)!)
     }
-
-    private func generateWebSocketKey() -> String {
-        let data = NSUUID().uuidString.data(using: String.Encoding.utf8)
-        let baseKey = data?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) ?? ""
-        return baseKey
+    
+    public func cleanup() {
+        if let stream = inputStream {
+            stream.delegate = nil
+            CFReadStreamSetDispatchQueue(stream, nil)
+            stream.close()
+        }
+        if let stream = outputStream {
+            stream.delegate = nil
+            CFWriteStreamSetDispatchQueue(stream, nil)
+            stream.close()
+        }
     }
 
     private func dequeueWrite(data: Data) {
