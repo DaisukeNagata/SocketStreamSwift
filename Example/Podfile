@@ -1,12 +1,11 @@
-use_frameworks!
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
 
 target 'SocketStreamSwift_Example' do
-  pod 'SocketStreamSwift', :path => '../'
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
 
-  target 'SocketStreamSwift_Tests' do
-    inherit! :search_paths
+  # Pods for SocketStreamSwift_Example
+  pod 'SocketStreamSwift'
 
-    pod 'Quick', '~> 1.2.0'
-    pod 'Nimble', '~> 7.0.2'
-  end
 end

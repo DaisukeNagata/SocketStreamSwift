@@ -1,27 +1,16 @@
 PODS:
-  - Nimble (7.0.3)
-  - Quick (1.2.0)
-  - SocketStreamSwift (0.1.0)
+  - SocketStreamSwift (0.4.1)
 
 DEPENDENCIES:
-  - Nimble (~> 7.0.2)
-  - Quick (~> 1.2.0)
-  - SocketStreamSwift (from `../`)
+  - SocketStreamSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Nimble
-    - Quick
-
-EXTERNAL SOURCES:
-  SocketStreamSwift:
-    :path: "../"
+    - SocketStreamSwift
 
 SPEC CHECKSUMS:
-  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  SocketStreamSwift: cb00069ceac00a97e664a2877d566f742427f851
+  SocketStreamSwift: ad961cf193a067998b7d1ce16c52c850deb2b5f8
 
-PODFILE CHECKSUM: d95b659b5c61a92a8cfe5a4271a89b382cd6f082
+PODFILE CHECKSUM: 6d2b8454bcea0b5f07296bf4154cff1235994d4e
 
-COCOAPODS: 1.7.0.rc.1
+COCOAPODS: 1.7.5
