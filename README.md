@@ -18,7 +18,7 @@
 
 ### Decompressor Blueprint 
 <p align="center">
-<img width="500" height="500" src="https://user-images.githubusercontent.com/16457165/62094662-cfb54200-b2b8-11e9-841c-39bcd1857429.png">
+<img width="500" height="500" src="hhttps://user-images.githubusercontent.com/16457165/62101324-fa5ec500-b2cf-11e9-8add-9cca3cb26282.png">
 </p>
 
 Effort to implement default chat application in Swift5.
