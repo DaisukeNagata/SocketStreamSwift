@@ -124,30 +124,6 @@ public class SocketStream: NSObject {
         }
     }
 
-    private func dequeueWrite(data: Data) {
-        var offset = 2
-        let firstByte: UInt8 = Wss.FinMask | Wss.textFrame
-        
-        let dataLength = data.count
-        let frame = NSMutableData(capacity: dataLength + Wss.maxReadLength)
-        
-        let buffer = UnsafeMutableRawPointer(frame!.mutableBytes).assumingMemoryBound(to: UInt8.self)
-        buffer[0] = firstByte
-        buffer[1] = CUnsignedChar(dataLength)
-        buffer[1] |= Wss.FinMask
-        
-        let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
-        offset += MemoryLayout<UInt32>.size
-        
-        for i in 0..<dataLength {
-            buffer[offset] = data[i] ^ maskKey[i % MemoryLayout<UInt32>.size]
-            offset += 1
-        }
-        
-        let writeBuffer = UnsafeRawPointer(frame!.bytes).assumingMemoryBound(to: UInt8.self)
-        self.write(Data(bytes: writeBuffer, count: offset))
-    }
-
     private func processInputStream() {
         let data = read()
         guard let d = data else { return }
@@ -290,7 +266,27 @@ extension SocketStream: ReadAndWriteToSocket {
 
     public func dequeueWrite(_ data: Data) {
         self.timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(streamUpdate), userInfo: nil, repeats: true)
-        dequeueWrite(data: data)
+        var offset = 2
+        let firstByte: UInt8 = Wss.FinMask | Wss.textFrame
+        
+        let dataLength = data.count
+        let frame = NSMutableData(capacity: dataLength + Wss.maxReadLength)
+        
+        let buffer = UnsafeMutableRawPointer(frame!.mutableBytes).assumingMemoryBound(to: UInt8.self)
+        buffer[0] = firstByte
+        buffer[1] = CUnsignedChar(dataLength)
+        buffer[1] |= Wss.FinMask
+        
+        let maskKey = UnsafeMutablePointer<UInt8>(buffer + offset)
+        offset += MemoryLayout<UInt32>.size
+        
+        for i in 0..<dataLength {
+            buffer[offset] = data[i] ^ maskKey[i % MemoryLayout<UInt32>.size]
+            offset += 1
+        }
+        
+        let writeBuffer = UnsafeRawPointer(frame!.bytes).assumingMemoryBound(to: UInt8.self)
+        write(Data(bytes: writeBuffer, count: offset))
     }
 
     public func sendMessage(_ message: String) {
