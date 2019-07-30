@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 
     // AWS RealURL "wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod", port = 443
     private var url = "localhost"
-    private var port = 443
+    private var port = 8000
     private var table: UITableView
     private var indexCount: [String]
     private lazy var extensionString: SocketStream = {
