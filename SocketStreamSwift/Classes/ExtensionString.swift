@@ -24,4 +24,10 @@ import CommonCrypto
         }
         return Data.init(digest).base64EncodedString()
     }
+    
+    func generateWebSocketKey() -> String {
+        let data = NSUUID().uuidString.data(using: String.Encoding.utf8)
+        let baseKey = data?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) ?? ""
+        return baseKey
+    }
 }
