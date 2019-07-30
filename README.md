@@ -7,7 +7,7 @@
 
 
 <p align="center">
-<img width="300" height="400" src="https://user-images.githubusercontent.com/16457165/62090081-80feac80-b2a6-11e9-8193-bbc5c0c6294d.png">
+<img width="300" height="400" src="https://user-images.githubusercontent.com/16457165/62126495-bb019a00-b30a-11e9-9a39-bee108b42754.png">
 </p>
 
 # [Reference](https://github.com/daisukenagata/SocketStreamSwift/wiki)
