@@ -11,7 +11,6 @@ import SocketStreamSwift
 
 class ViewController: UIViewController {
 
-    // AWS RealURL "wss://9rqzvo5ac3.execute-api.ap-northeast-1.amazonaws.com/Prod", port = 443
     private var url = "wss://localhost"
     private var port = 8000
     private var indexCount = [String]()
