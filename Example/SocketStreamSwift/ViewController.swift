@@ -11,8 +11,8 @@ import SocketStreamSwift
 
 class ViewController: UIViewController {
 
-    private var url = "wss://localhost"
-    private var port = 8000
+    private var url = "wss://nrsiaemeja.execute-api.ap-northeast-1.amazonaws.com/Prod"
+    private var port = 443
     private var indexCount = [String]()
 
     private lazy var table: UITableView = {
