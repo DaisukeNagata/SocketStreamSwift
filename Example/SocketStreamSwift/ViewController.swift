@@ -28,9 +28,7 @@ class ViewController: UIViewController {
     private lazy var socketStream: SocketStream = {
        let e = SocketStream(url: URL(string:url)!, hostNumber: UInt32(port))
         e.delegate = self
-        e.delegate = self
         e.unConnected = self
-        e.networkAccept()
         return e
     }()
 
@@ -43,6 +41,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        socketStream.networkAccept()
         table.frame.origin.y = enterField.frame.origin.y + enterField.frame.height + UIApplication.shared.statusBarFrame.height
     }
 
