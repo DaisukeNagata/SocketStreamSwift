@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
         s.name             = 'SocketStreamSwift'
-        s.version          = '0.4.3'
+        s.version          = '0.4.5'
         s.summary          = 'It is a library to conduct chat.'
         s.description      = <<-DESC
         TODO: Add long description of the pod here.
@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
         s.author           = { 'daisukenagata' => 'dbank0208@gmail.com' }
         s.source           = { :git => 'https://github.com/daisukenagata/SocketStreamSwift.git', :tag => s.version.to_s }
         s.ios.deployment_target = '11.0'
-        s.swift_version = '5.0'
+        s.swift_version = '5.1'
         s.source_files = 'SocketStreamSwift/Classes/**/*'
     end
