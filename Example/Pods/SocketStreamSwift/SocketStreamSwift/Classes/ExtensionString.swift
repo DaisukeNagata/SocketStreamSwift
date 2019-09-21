@@ -17,7 +17,7 @@ import CommonCrypto
     }
 
     func sha1Base64() -> String {
-        var data = self.data(using: String.Encoding.utf8)!
+        let data = self.data(using: String.Encoding.utf8) ?? Data()
         var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
         data.withUnsafeBytes {
             _ = CC_SHA1($0.baseAddress, CC_LONG(data.count), &digest)
