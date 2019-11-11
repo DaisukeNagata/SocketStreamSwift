@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         socketStream.networkAccept()
-        table.frame.origin.y = enterField.frame.origin.y + enterField.frame.height + (view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? UIApplication.shared.statusBarFrame.height)
+        table.frame.origin.y = enterField.frame.origin.y + enterField.frame.height + ( UIApplication.shared.statusBarFrame.height)
     }
 
 }

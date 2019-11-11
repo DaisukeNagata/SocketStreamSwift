@@ -32,8 +32,8 @@
 
 /* Begin PBXFileReference section */
 		09FD116A022C90A016E4F71ACBBACB4E /* SocketStreamStructs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketStreamStructs.swift; path = SocketStreamSwift/Classes/SocketStreamStructs.swift; sourceTree = "<group>"; };
-		254B0FF6025EB2C4C839C8956FFF5BAC /* Pods_SocketStreamSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SocketStreamSwift_Example.framework; path = "Pods-SocketStreamSwift_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2644468384DDB0F18F43ED60C7C2C728 /* SocketStreamSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SocketStreamSwift.framework; path = SocketStreamSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		254B0FF6025EB2C4C839C8956FFF5BAC /* Pods_SocketStreamSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocketStreamSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2644468384DDB0F18F43ED60C7C2C728 /* SocketStreamSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SocketStreamSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EAD722FB4823CA492F541443C713D1C /* SocketStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketStream.swift; path = SocketStreamSwift/Classes/SocketStream.swift; sourceTree = "<group>"; };
 		42902898FEFFD0AD058D51568EF5148A /* ExtensionString.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionString.swift; path = SocketStreamSwift/Classes/ExtensionString.swift; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		7FF5B1D13F3CB0897A73D6EE44624DED /* SocketStreamSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketStreamSwift-prefix.pch"; sourceTree = "<group>"; };
 		8F0711950FC437E8D43A7F205CCB3910 /* SocketStreamProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketStreamProtocols.swift; path = SocketStreamSwift/Classes/SocketStreamProtocols.swift; sourceTree = "<group>"; };
 		8FAF3E8F41A9D5C232F6E3F69606369F /* SocketStreamSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SocketStreamSwift-dummy.m"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DAAF27D1C1B092B6F5876C996996D08 /* Pods-SocketStreamSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SocketStreamSwift_Example.modulemap"; sourceTree = "<group>"; };
 		A01646120F0C7406406AE00B9C057867 /* Pods-SocketStreamSwift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SocketStreamSwift_Example-frameworks.sh"; sourceTree = "<group>"; };
 		A43731725A478CF75CA7FCDDD134048F /* Decompressor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Decompressor.swift; path = SocketStreamSwift/Classes/Decompressor.swift; sourceTree = "<group>"; };
@@ -96,7 +96,6 @@
 				09FD116A022C90A016E4F71ACBBACB4E /* SocketStreamStructs.swift */,
 				C93B55B4C19C17D37F5E935B2E2C2B4C /* Support Files */,
 			);
-			name = SocketStreamSwift;
 			path = SocketStreamSwift;
 			sourceTree = "<group>";
 		};
@@ -240,7 +239,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -248,6 +247,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 03A8ADD6054CA7C450C103DD1DEB3C98 /* Products */;
@@ -316,7 +316,6 @@
 			baseConfigurationReference = 5F8241AB9292FB13BAA286A6706C244B /* Pods-SocketStreamSwift_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -399,8 +398,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -410,7 +408,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE9CE14FB6580610BBCA98453A210B5B /* SocketStreamSwift.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -445,7 +442,6 @@
 			baseConfigurationReference = 5DECC0C0FF49D61ACEF76A7016CF8C6E /* Pods-SocketStreamSwift_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -544,7 +540,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE9CE14FB6580610BBCA98453A210B5B /* SocketStreamSwift.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
