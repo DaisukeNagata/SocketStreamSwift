@@ -11,7 +11,7 @@ import SocketStreamSwift
 
 class ViewController: UIViewController {
 
-    private var url = "wss://nrsiaemeja.execute-api.ap-northeast-1.amazonaws.com/Prod"
+    private var url = "wss://n7j33uapv0.execute-api.ap-northeast-1.amazonaws.com/prod"
     private var port = 443
     private var indexCount = [String]()
 
@@ -73,7 +73,7 @@ extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if port == 443 {
-            let p:[String:Any] = ["message":"sendmessage","data":"\(textField.text ?? "" )"]
+            let p:[String:Any] = ["action":"sendmessage","data":"\(textField.text ?? "" )"]
             let dd = try! JSONSerialization.data(withJSONObject: p, options: .prettyPrinted)
             socketStream.dequeueWrite(dd)
         } else {
