@@ -11,7 +11,7 @@ import SocketStreamSwift
 
 class ViewController: UIViewController {
 
-    private var url = "wss://n7j33uapv0.execute-api.ap-northeast-1.amazonaws.com/prod"
+    private var url = "wss://mf6dl8d7wg.execute-api.ap-northeast-1.amazonaws.com/Prod"
     private var port = 443
     private var indexCount = [String]()
 
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         socketStream.networkAccept()
-        table.frame.origin.y = enterField.frame.origin.y + enterField.frame.height + ( UIApplication.shared.statusBarFrame.height)
+        table.frame.origin.y = enterField.frame.origin.y + enterField.frame.height + 44
     }
 
 }
