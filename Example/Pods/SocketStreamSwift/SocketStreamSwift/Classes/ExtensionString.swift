@@ -8,6 +8,10 @@
 
 import CommonCrypto
 
+class Digest {
+    var set = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+}
+
  extension String {
 
     func replacing() -> String {
@@ -17,16 +21,14 @@ import CommonCrypto
     }
 
     func sha1Base64() -> String {
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA1_DIGEST_LENGTH))
+        let xInstance = Digest()
         self.data(using: String.Encoding.utf8)?.withUnsafeBytes {
-            _ = CC_SHA1($0.baseAddress, CC_LONG(self.data(using: String.Encoding.utf8)?.count ?? 0), &digest)
+            _ = CC_SHA1($0.baseAddress, CC_LONG(self.data(using: String.Encoding.utf8)?.count ?? 0), &xInstance.set)
         }
-        return Data.init(digest).base64EncodedString()
+        return Data.init(xInstance.set).base64EncodedString()
     }
     
     func generateWebSocketKey() -> String {
-        let data = NSUUID().uuidString.data(using: String.Encoding.utf8)
-        let baseKey = data?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) ?? ""
-        return baseKey
+        return NSUUID().uuidString.data(using: String.Encoding.utf8)?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0)) ?? ""
     }
 }
