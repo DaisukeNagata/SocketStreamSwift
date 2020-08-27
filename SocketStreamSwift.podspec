@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
         s.name             = 'SocketStreamSwift'
-        s.version          = '0.5.8'
-        s.summary          = 'It is a library to conduct chat function. Create a dedicated WebSocket communication.'
+        s.version          = '0.5.9'
+        s.summary          = 'It is a library to conduct chat function.'
         s.description      = <<-DESC
         TODO: Add long description of the pod here.
         DESC
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
         s.license          = { :type => 'MIT', :file => 'LICENSE' }
         s.author           = { 'daisukenagata' => 'dbank0208@gmail.com' }
         s.source           = { :git => 'https://github.com/daisukenagata/SocketStreamSwift.git', :tag => s.version.to_s }
-        s.ios.deployment_target = '13'
+        s.ios.deployment_target = '13.6'
         s.swift_versions = '5.0'
         s.source_files = 'SocketStreamSwift/Classes/**/*'
     end
