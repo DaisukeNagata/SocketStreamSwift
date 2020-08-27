@@ -32,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		09FD116A022C90A016E4F71ACBBACB4E /* SocketStreamStructs.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketStreamStructs.swift; path = SocketStreamSwift/Classes/SocketStreamStructs.swift; sourceTree = "<group>"; };
-		254B0FF6025EB2C4C839C8956FFF5BAC /* Pods_SocketStreamSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocketStreamSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2644468384DDB0F18F43ED60C7C2C728 /* SocketStreamSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SocketStreamSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3EAD722FB4823CA492F541443C713D1C /* SocketStream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SocketStream.swift; path = SocketStreamSwift/Classes/SocketStream.swift; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		03A8ADD6054CA7C450C103DD1DEB3C98 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				254B0FF6025EB2C4C839C8956FFF5BAC /* Pods_SocketStreamSwift_Example.framework */,
 				2644468384DDB0F18F43ED60C7C2C728 /* SocketStreamSwift.framework */,
 			);
 			name = Products;
@@ -229,7 +227,6 @@
 			);
 			name = "Pods-SocketStreamSwift_Example";
 			productName = "Pods-SocketStreamSwift_Example";
-			productReference = 254B0FF6025EB2C4C839C8956FFF5BAC /* Pods_SocketStreamSwift_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -241,7 +238,7 @@
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1200;
 			};
-			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "_Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -573,7 +570,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "_Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DD8F832993327D1DD8046C3CBCBD97CD /* Debug */,
